@@ -7,6 +7,7 @@ function ContextProvider({ children }) {
   const [tableColumns, setTableColumns] = useState([]);
   const [filterByName, setFilterByName] = useState({ name: '' });
   const [filteredPlanets, setFilteredPlanets] = useState([]);
+  const [filterByNumericValues, setFilterByNumericValues] = useState([]);
 
   useEffect(() => {
     const URL = 'https://swapi-trybe.herokuapp.com/api/planets/';
@@ -31,11 +32,38 @@ function ContextProvider({ children }) {
     }
   }, [data, filterByName]);
 
+  const handleFilterByNumericValues = () => {
+    if (filterByNumericValues.comparison === 'maior que') {
+      setFilteredPlanets(
+        data.filter(
+          (planet) => Number(planet[filterByNumericValues.column])
+            > Number(filterByNumericValues.value),
+        ),
+      );
+    } else if (filterByNumericValues.comparison === 'menor que') {
+      setFilteredPlanets(
+        data.filter(
+          (planet) => Number(planet[filterByNumericValues.column])
+            < Number(filterByNumericValues.value),
+        ),
+      );
+    } else if (filterByNumericValues.comparison === 'igual a') {
+      setFilteredPlanets(
+        data.filter(
+          (planet) => Number(planet[filterByNumericValues.column])
+            === Number(filterByNumericValues.value),
+        ),
+      );
+    }
+  };
+
   const contextValue = {
     data,
     tableColumns,
     setFilterByName,
     filteredPlanets,
+    setFilterByNumericValues,
+    handleFilterByNumericValues,
   };
 
   return <Context.Provider value={ contextValue }>{children}</Context.Provider>;

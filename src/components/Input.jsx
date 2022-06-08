@@ -1,18 +1,24 @@
-import React, { useContext } from 'react';
-import Context from '../context/Context';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-function Input() {
-  const { setFilterByName } = useContext(Context);
+function Input({ type, placeholder, onChange, dataTestId }) {
   return (
     <div>
       <input
-        type="text"
-        placeholder="Search..."
-        onChange={ ({ target }) => setFilterByName({ name: target.value }) }
-        data-testid="name-filter"
+        type={ type }
+        placeholder={ placeholder }
+        onChange={ onChange }
+        data-testid={ dataTestId }
       />
     </div>
   );
 }
+
+Input.propTypes = {
+  type: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  dataTestId: PropTypes.string.isRequired,
+};
 
 export default Input;

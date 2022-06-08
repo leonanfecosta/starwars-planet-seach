@@ -15,6 +15,7 @@ function ContextProvider({ children }) {
       const response = await fetch(URL);
       const planets = await response.json();
       setData(planets.results);
+      setFilteredPlanets(planets);
       setTableColumns(
         Object.keys(planets.results[0]).filter((key) => key !== 'residents'),
       );
@@ -23,39 +24,23 @@ function ContextProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    if (filterByName.name !== '') {
-      const filtered = data.filter((planet) => planet.name.toLowerCase()
-        .includes(filterByName.name.toLowerCase()));
-      setFilteredPlanets(filtered);
-    } else {
-      setFilteredPlanets(data);
-    }
-  }, [data, filterByName]);
+    const filtered = data.filter((planet) => planet.name.toLowerCase()
+      .includes(filterByName.name.toLowerCase()));
+    const result = filterByNumericValues.reduce((acc, filter) => acc.filter((planet) => {
+      switch (filter.comparison) {
+      case 'maior que':
+        return Number(planet[filter.column]) > Number(filter.value);
+      case 'menor que':
+        return Number(planet[filter.column]) < Number(filter.value);
+      case 'igual a':
+        return Number(planet[filter.column]) === Number(filter.value);
+      default:
+        return true;
+      }
+    }), filtered);
 
-  const handleFilterByNumericValues = () => {
-    if (filterByNumericValues.comparison === 'maior que') {
-      setFilteredPlanets(
-        data.filter(
-          (planet) => Number(planet[filterByNumericValues.column])
-            > Number(filterByNumericValues.value),
-        ),
-      );
-    } else if (filterByNumericValues.comparison === 'menor que') {
-      setFilteredPlanets(
-        data.filter(
-          (planet) => Number(planet[filterByNumericValues.column])
-            < Number(filterByNumericValues.value),
-        ),
-      );
-    } else if (filterByNumericValues.comparison === 'igual a') {
-      setFilteredPlanets(
-        data.filter(
-          (planet) => Number(planet[filterByNumericValues.column])
-            === Number(filterByNumericValues.value),
-        ),
-      );
-    }
-  };
+    setFilteredPlanets(result);
+  }, [filterByName, filterByNumericValues, data]);
 
   const contextValue = {
     data,
@@ -63,7 +48,8 @@ function ContextProvider({ children }) {
     setFilterByName,
     filteredPlanets,
     setFilterByNumericValues,
-    handleFilterByNumericValues,
+    filterByNumericValues,
+    filterByName,
   };
 
   return <Context.Provider value={ contextValue }>{children}</Context.Provider>;

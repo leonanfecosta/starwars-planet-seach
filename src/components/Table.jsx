@@ -1,15 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Context from '../context/Context';
 import Input from './Input';
 import Select from './Select';
 
 function Table() {
+  const [column, setColumn] = useState('population');
+  const [comparison, setComparison] = useState('maior que');
+  const [value, setValue] = useState(0);
+
   const {
     tableColumns,
     filteredPlanets,
     setFilterByName,
     setFilterByNumericValues,
-    handleFilterByNumericValues,
+    filterByNumericValues,
   } = useContext(Context);
 
   const columOptions = [
@@ -19,56 +23,67 @@ function Table() {
     'rotation_period',
     'surface_water',
   ];
+
   const comparisonOptions = ['maior que', 'menor que', 'igual a'];
+
+  const handleNumericFilter = () => {
+    const numericFilter = {
+      column,
+      comparison,
+      value,
+    };
+    setFilterByNumericValues([...filterByNumericValues, numericFilter]);
+  };
+
   return (
     <div>
-      <Input
-        type="text"
-        placeholder="Search..."
-        onChange={ ({ target }) => setFilterByName({ name: target.value }) }
-        dataTestId="name-filter"
-      />
-      <Select
-        options={ columOptions }
-        labelName="Coluna"
-        selectId="column-filter"
-        testId="column-filter"
-        onChange={ ({ target }) => setFilterByNumericValues((state) => ({
-          ...state,
-          column: target.value,
-        })) }
-      />
-      <Select
-        options={ comparisonOptions }
-        labelName="Operador"
-        selectId="comparison-filter"
-        testId="comparison-filter"
-        onChange={ ({ target }) => setFilterByNumericValues((state) => ({
-          ...state,
-          comparison: target.value,
-        })) }
-      />
-      <Input
-        type="number"
-        placeholder="População"
-        onChange={ ({ target }) => setFilterByNumericValues((state) => ({
-          ...state,
-          value: target.value,
-        })) }
-        dataTestId="value-filter"
-      />
-      <button
-        type="button"
-        data-testid="button-filter"
-        onClick={ handleFilterByNumericValues }
-      >
-        Filtrar
-      </button>
+      <form>
+        <Input
+          type="text"
+          placeholder="Search..."
+          onChange={ ({ target }) => setFilterByName({ name: target.value }) }
+          dataTestId="name-filter"
+        />
+        <Select
+          options={ columOptions }
+          labelName="Coluna"
+          selectId="column-filter"
+          testId="column-filter"
+          onChange={ ({ target }) => setColumn(target.value) }
+        />
+        <Select
+          options={ comparisonOptions }
+          labelName="Operador"
+          selectId="comparison-filter"
+          testId="comparison-filter"
+          onChange={ ({ target }) => setComparison(target.value) }
+        />
+        <Input
+          type="number"
+          placeholder="0"
+          onChange={ ({ target }) => setValue(target.value) }
+          dataTestId="value-filter"
+          value={ value }
+        />
+        <button
+          type="button"
+          data-testid="button-filter"
+          onClick={ handleNumericFilter }
+        >
+          Filtrar
+        </button>
+
+        <div>
+          {filterByNumericValues.map((filter, index) => (
+            <p key={ index }>{`${filter.column} ${filter.comparison} ${filter.value}`}</p>
+          ))}
+        </div>
+      </form>
       <table>
         <thead>
           <tr>
-            {tableColumns.map((column, index) => (
-              <th key={ index }>{column.toUpperCase().replace('_', ' ')}</th>
+            {tableColumns.map((columnTitle, index) => (
+              <th key={ index }>{columnTitle.toUpperCase().replace('_', ' ')}</th>
             ))}
           </tr>
         </thead>

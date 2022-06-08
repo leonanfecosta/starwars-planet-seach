@@ -7,6 +7,13 @@ function Table() {
   const [column, setColumn] = useState('population');
   const [comparison, setComparison] = useState('maior que');
   const [value, setValue] = useState(0);
+  const [columOptions, setColumOptions] = useState([
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ]);
 
   const {
     tableColumns,
@@ -16,14 +23,6 @@ function Table() {
     filterByNumericValues,
   } = useContext(Context);
 
-  const columOptions = [
-    'population',
-    'orbital_period',
-    'diameter',
-    'rotation_period',
-    'surface_water',
-  ];
-
   const comparisonOptions = ['maior que', 'menor que', 'igual a'];
 
   const handleNumericFilter = () => {
@@ -32,6 +31,10 @@ function Table() {
       comparison,
       value,
     };
+    setColumOptions(
+      columOptions.filter((option) => option !== column),
+    );
+
     setFilterByNumericValues([...filterByNumericValues, numericFilter]);
   };
 

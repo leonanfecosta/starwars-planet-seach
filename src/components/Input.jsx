@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 
 function Input({ type, placeholder, onChange, dataTestId, value }) {
   return (
-    <div>
-      <input
-        type={ type }
-        placeholder={ placeholder }
-        onChange={ onChange }
-        data-testid={ dataTestId }
-        value={ value }
-      />
-    </div>
+
+    <input
+      type={ type }
+      placeholder={ placeholder }
+      onChange={ onChange }
+      data-testid={ dataTestId }
+      value={ value }
+    />
+
   );
 }
 

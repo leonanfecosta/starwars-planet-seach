@@ -2,6 +2,8 @@ import React, { useContext, useState } from 'react';
 import Context from '../context/Context';
 import Input from './Input';
 import Select from './Select';
+import styles from '../styles/Table.module.css';
+import logo from '../assets/images/star-wars-4.svg';
 
 function Table() {
   const INITIAL_OPTIONS = [
@@ -53,14 +55,15 @@ function Table() {
   };
 
   return (
-    <div>
-      <form>
-        <Input
-          type="text"
-          placeholder="Search..."
-          onChange={ ({ target }) => setFilterByName({ name: target.value }) }
-          dataTestId="name-filter"
-        />
+    <div className={ styles.main }>
+      <img src={ logo } alt="starW=wars-logo" />
+      <Input
+        type="text"
+        placeholder="Search planets"
+        onChange={ ({ target }) => setFilterByName({ name: target.value }) }
+        dataTestId="name-filter"
+      />
+      <form className={ styles.form }>
         <Select
           options={ columnOptions }
           labelName="Coluna"
@@ -90,15 +93,6 @@ function Table() {
           Filtrar
         </button>
 
-        {filterByNumericValues.map((filter, index) => (
-          <div key={ index } data-testid="filter">
-            <p>{`${filter.column} ${filter.comparison} ${filter.value}`}</p>
-            <button type="button" onClick={ () => deleteFilter(filter.column) }>
-              X
-            </button>
-          </div>
-        ))}
-
         <button
           type="button"
           onClick={ removeAllFilters }
@@ -107,6 +101,16 @@ function Table() {
           Remover filtros
         </button>
       </form>
+      <div>
+        {filterByNumericValues.map((filter, index) => (
+          <div key={ index } data-testid="filter">
+            <p>{`${filter.column} ${filter.comparison} ${filter.value}`}</p>
+            <button type="button" onClick={ () => deleteFilter(filter.column) }>
+              X
+            </button>
+          </div>
+        ))}
+      </div>
       <table>
         <thead>
           <tr>
@@ -130,14 +134,14 @@ function Table() {
               <td>
                 {planet.films.map((film) => (
                   <span key={ film }>
-                    <a href={ film }>{film}</a>
+                    {film}
                   </span>
                 ))}
               </td>
               <td>{planet.created}</td>
               <td>{planet.edited}</td>
               <td>
-                <a href={ planet.url }>{planet.url}</a>
+                {planet.url}
               </td>
             </tr>
           ))}

@@ -1,0 +1,95 @@
+.main {
+  align-items: center;
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--text-font);
+  font-size: 12pt;
+  justify-content: center;
+  width: 100%;
+}
+
+.main > img {
+  height: 70px;
+  margin: 20px 0;
+}
+
+.main > input {
+  background-color: var(--background-color);
+  border: 1px solid var(--text-color-secondary);
+  border-radius: 5px;
+  box-shadow: 0 0 5px 0.5px var(--text-color-secondary);
+  color: var(--text-color);
+  font-size: 16pt;
+  outline: none;
+  padding: 10px;
+  width: 30%;
+}
+
+.main > input::placeholder {
+  color: var(--text-color-secondary);
+}
+
+.form {
+  align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 20px 0;
+  width: 100%;
+}
+
+.form > input {
+  background-color: var(--background-color);
+  border: 1px solid var(--text-color-secondary);
+  border-radius: 5px;
+  box-shadow: 0 0 5px 0.5px var(--text-color-secondary);
+  color: var(--text-color);
+  font-size: 16pt;
+  outline: none;
+  padding: 5px;
+  text-align: center;
+  width: 5%;
+}
+
+.form > button {
+  background-color: var(--background-color);
+  border: 1px solid var(--button-color);
+  border-radius: 5px;
+  box-shadow: 0 0 5px 0.5px var(--button-color);
+  color: var(--text-color);
+  cursor: pointer;
+  font-size: 16pt;
+  outline: none;
+  padding: 5px;
+  text-align: center;
+  width: 10%;
+}
+
+.form > button:hover {
+  background-color: var(--button-color);
+  box-shadow: 0 0 5px 0.5px var(--button-color);
+  color: var(--background-color);
+}
+
+.form > input:focus {
+  border: 1px solid var(--button-color);
+  box-shadow: 0 0 5px 0.5px var(--button-color);
+}
+
+.form > select {
+  background-color: var(--background-color);
+  border: 1px solid var(--text-color-secondary);
+  border-radius: 5px;
+  box-shadow: 0 0 5px 0.5px var(--text-color-secondary);
+  color: var(--text-color);
+  font-size: 16pt;
+  outline: none;
+  padding: 5px;
+  text-align: center;
+  width: 10%;
+}
+
+.main > input:focus {
+  border: 1px solid var(--button-color);
+  box-shadow: 0 0 5px 0.5px var(--button-color);
+}

@@ -4,16 +4,17 @@ import Input from './Input';
 import Select from './Select';
 
 function Table() {
-  const [column, setColumn] = useState('population');
-  const [comparison, setComparison] = useState('maior que');
-  const [value, setValue] = useState(0);
-  const [columOptions, setColumOptions] = useState([
+  const INITIAL_OPTIONS = [
     'population',
     'orbital_period',
     'diameter',
     'rotation_period',
     'surface_water',
-  ]);
+  ];
+  const [column, setColumn] = useState('population');
+  const [comparison, setComparison] = useState('maior que');
+  const [value, setValue] = useState(0);
+  const [columnOptions, setColumnOptions] = useState(INITIAL_OPTIONS);
 
   const {
     tableColumns,
@@ -31,11 +32,24 @@ function Table() {
       comparison,
       value,
     };
-    setColumOptions(
-      columOptions.filter((option) => option !== column),
+    setColumnOptions(
+      columnOptions.filter((option) => option !== column),
     );
 
     setFilterByNumericValues([...filterByNumericValues, numericFilter]);
+  };
+
+  const deleteFilter = (columnName) => {
+    const newFilters = filterByNumericValues
+      .filter((filter) => filter.column !== columnName);
+    setFilterByNumericValues(newFilters);
+
+    setColumnOptions([...columnOptions, columnName]);
+  };
+
+  const removeAllFilters = () => {
+    setFilterByNumericValues([]);
+    setColumnOptions(INITIAL_OPTIONS);
   };
 
   return (
@@ -48,7 +62,7 @@ function Table() {
           dataTestId="name-filter"
         />
         <Select
-          options={ columOptions }
+          options={ columnOptions }
           labelName="Coluna"
           selectId="column-filter"
           testId="column-filter"
@@ -76,11 +90,22 @@ function Table() {
           Filtrar
         </button>
 
-        <div>
-          {filterByNumericValues.map((filter, index) => (
-            <p key={ index }>{`${filter.column} ${filter.comparison} ${filter.value}`}</p>
-          ))}
-        </div>
+        {filterByNumericValues.map((filter, index) => (
+          <div key={ index } data-testid="filter">
+            <p>{`${filter.column} ${filter.comparison} ${filter.value}`}</p>
+            <button type="button" onClick={ () => deleteFilter(filter.column) }>
+              X
+            </button>
+          </div>
+        ))}
+
+        <button
+          type="button"
+          onClick={ removeAllFilters }
+          data-testid="button-remove-filters"
+        >
+          Remover filtros
+        </button>
       </form>
       <table>
         <thead>

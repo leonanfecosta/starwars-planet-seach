@@ -24,6 +24,10 @@ function Table() {
     setFilterByName,
     setFilterByNumericValues,
     filterByNumericValues,
+    filterByName,
+    setOrderColumn,
+    setOrdernation,
+    changeOrder,
   } = useContext(Context);
 
   const comparisonOptions = ['maior que', 'menor que', 'igual a'];
@@ -62,6 +66,10 @@ function Table() {
         placeholder="Search planets"
         onChange={ ({ target }) => setFilterByName({ name: target.value }) }
         dataTestId="name-filter"
+        name="search"
+        labelContent=""
+        value={ filterByName.name }
+        id="name-filter"
       />
       <form className={ styles.form }>
         <Select
@@ -84,6 +92,10 @@ function Table() {
           onChange={ ({ target }) => setValue(target.value) }
           dataTestId="value-filter"
           value={ value }
+          id="value-filter"
+          labelContent=""
+          name="value"
+
         />
         <button
           type="button"
@@ -91,6 +103,44 @@ function Table() {
           onClick={ handleNumericFilter }
         >
           Filtrar
+        </button>
+
+        <div>
+          <span>ordernar por  </span>
+          <Select
+            options={ INITIAL_OPTIONS }
+            testId="column-sort"
+            selectId="column-sort"
+            onChange={ ({ target }) => setOrderColumn(target.value) }
+          />
+        </div>
+
+        <Input
+          type="radio"
+          id="asc"
+          name="order"
+          value="ASC"
+          onChange={ () => setOrdernation('ASC') }
+          dataTestId="column-sort-input-asc"
+          labelContent="Ascedente"
+        />
+
+        <Input
+          type="radio"
+          id="desc"
+          name="order"
+          value="DESC"
+          onChange={ () => setOrdernation('DESC') }
+          dataTestId="column-sort-input-desc"
+          labelContent="Descedente"
+        />
+
+        <button
+          type="button"
+          data-testid="column-sort-button"
+          onClick={ changeOrder }
+        >
+          Ordernar
         </button>
 
         <button
@@ -122,7 +172,7 @@ function Table() {
         <tbody>
           {filteredPlanets.map((planet, index) => (
             <tr key={ index }>
-              <td>{planet.name}</td>
+              <td data-testid="planet-name">{planet.name}</td>
               <td>{planet.rotation_period}</td>
               <td>{planet.orbital_period}</td>
               <td>{planet.diameter}</td>

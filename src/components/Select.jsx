@@ -1,17 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from '../styles/Table.module.css';
 
 function Select({ options, selectId, testId, onChange }) {
   return (
-
-    <select id={ selectId } data-testid={ testId } onChange={ onChange }>
-      { options.map((option, index) => (
+    <select
+      id={ selectId }
+      data-testid={ testId }
+      onChange={ onChange }
+      className={ styles.Select }
+    >
+      {options.map((option, index) => (
         <option key={ index } value={ option }>
-          { option }
+          {option}
         </option>
-      )) }
+      ))}
     </select>
-
   );
 }
 

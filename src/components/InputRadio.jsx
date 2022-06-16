@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { GiPlanetCore } from 'react-icons/gi';
 import styles from '../styles/Table.module.css';
 
 function Input({
-  type,
-  placeholder,
   onChange,
   dataTestId,
   value,
@@ -13,29 +12,22 @@ function Input({
   name,
 }) {
   return (
-    <label htmlFor={ id }>
+    <label htmlFor={ id } className={ styles.inputRadio }>
       {labelContent}
       <input
-        type={ type }
-        placeholder={ placeholder }
+        type="radio"
         onChange={ onChange }
         data-testid={ dataTestId }
         value={ value }
         id={ id }
         name={ name }
-        className={ styles.Input }
       />
+      <GiPlanetCore className={ styles.inputRadioIcon } />
     </label>
   );
 }
 
-Input.defaultProps = {
-  placeholder: '',
-};
-
 Input.propTypes = {
-  type: PropTypes.string.isRequired,
-  placeholder: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   dataTestId: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,

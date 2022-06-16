@@ -1,7 +1,9 @@
 import React, { useContext, useState } from 'react';
+import { FaTrash } from 'react-icons/fa';
 import Context from '../context/Context';
 import Input from './Input';
 import Select from './Select';
+import InputRadio from './InputRadio';
 import styles from '../styles/Table.module.css';
 import logo from '../assets/images/star-wars-4.svg';
 
@@ -61,16 +63,57 @@ function Table() {
   return (
     <div className={ styles.main }>
       <img src={ logo } alt="starW=wars-logo" />
-      <Input
-        type="text"
-        placeholder="Search planets"
-        onChange={ ({ target }) => setFilterByName({ name: target.value }) }
-        dataTestId="name-filter"
-        name="search"
-        labelContent=""
-        value={ filterByName.name }
-        id="name-filter"
-      />
+
+      <div className={ styles.mainContent }>
+        <Input
+          type="text"
+          placeholder="Search planets"
+          onChange={ ({ target }) => setFilterByName({ name: target.value }) }
+          dataTestId="name-filter"
+          name="search"
+          labelContent=""
+          value={ filterByName.name }
+          id="name-filter"
+        />
+
+        <div>
+          <span>ordernar por  </span>
+          <Select
+            options={ INITIAL_OPTIONS }
+            testId="column-sort"
+            selectId="column-sort"
+            onChange={ ({ target }) => setOrderColumn(target.value) }
+          />
+        </div>
+
+        <InputRadio
+          type="radio"
+          id="asc"
+          name="order"
+          value="ASC"
+          onChange={ () => setOrdernation('ASC') }
+          dataTestId="column-sort-input-asc"
+          labelContent="Ascedente"
+        />
+
+        <InputRadio
+          type="radio"
+          id="desc"
+          name="order"
+          value="DESC"
+          onChange={ () => setOrdernation('DESC') }
+          dataTestId="column-sort-input-desc"
+          labelContent="Descedente"
+        />
+
+        <button
+          type="button"
+          data-testid="column-sort-button"
+          onClick={ changeOrder }
+        >
+          Ordernar
+        </button>
+      </div>
       <form className={ styles.form }>
         <Select
           options={ columnOptions }
@@ -105,44 +148,6 @@ function Table() {
           Filtrar
         </button>
 
-        <div>
-          <span>ordernar por  </span>
-          <Select
-            options={ INITIAL_OPTIONS }
-            testId="column-sort"
-            selectId="column-sort"
-            onChange={ ({ target }) => setOrderColumn(target.value) }
-          />
-        </div>
-
-        <Input
-          type="radio"
-          id="asc"
-          name="order"
-          value="ASC"
-          onChange={ () => setOrdernation('ASC') }
-          dataTestId="column-sort-input-asc"
-          labelContent="Ascedente"
-        />
-
-        <Input
-          type="radio"
-          id="desc"
-          name="order"
-          value="DESC"
-          onChange={ () => setOrdernation('DESC') }
-          dataTestId="column-sort-input-desc"
-          labelContent="Descedente"
-        />
-
-        <button
-          type="button"
-          data-testid="column-sort-button"
-          onClick={ changeOrder }
-        >
-          Ordernar
-        </button>
-
         <button
           type="button"
           onClick={ removeAllFilters }
@@ -151,12 +156,12 @@ function Table() {
           Remover filtros
         </button>
       </form>
-      <div>
+      <div className={ styles.filterContent }>
         {filterByNumericValues.map((filter, index) => (
           <div key={ index } data-testid="filter">
             <p>{`${filter.column} ${filter.comparison} ${filter.value}`}</p>
             <button type="button" onClick={ () => deleteFilter(filter.column) }>
-              X
+              <FaTrash className={ styles.btnIcon } />
             </button>
           </div>
         ))}

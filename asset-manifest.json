@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/starwars-planet-search/static/css/main.36a23125.css",
-    "main.js": "/starwars-planet-search/static/js/main.b786c3d3.js",
-    "static/media/star-wars-4.svg": "/starwars-planet-search/static/media/star-wars-4.3bf2a05eba37f49b9b0ddfa3920fb34f.svg",
+    "main.css": "/starwars-planet-search/static/css/main.1de60085.css",
+    "main.js": "/starwars-planet-search/static/js/main.ecbdd7e8.js",
+    "static/media/projectIntro.gif": "/starwars-planet-search/static/media/projectIntro.4ff030b5f89890ec00bb.gif",
     "index.html": "/starwars-planet-search/index.html",
-    "main.36a23125.css.map": "/starwars-planet-search/static/css/main.36a23125.css.map",
-    "main.b786c3d3.js.map": "/starwars-planet-search/static/js/main.b786c3d3.js.map"
+    "main.1de60085.css.map": "/starwars-planet-search/static/css/main.1de60085.css.map",
+    "main.ecbdd7e8.js.map": "/starwars-planet-search/static/js/main.ecbdd7e8.js.map"
   },
   "entrypoints": [
-    "static/css/main.36a23125.css",
-    "static/js/main.b786c3d3.js"
+    "static/css/main.1de60085.css",
+    "static/js/main.ecbdd7e8.js"
   ]
 }

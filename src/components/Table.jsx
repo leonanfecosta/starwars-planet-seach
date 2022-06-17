@@ -5,7 +5,7 @@ import Input from './Input';
 import Select from './Select';
 import InputRadio from './InputRadio';
 import styles from '../styles/Table.module.css';
-import logo from '../assets/images/star-wars-4.svg';
+import logo from '../assets/images/projectIntro.gif';
 
 function Table() {
   const INITIAL_OPTIONS = [

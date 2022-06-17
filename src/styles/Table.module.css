@@ -11,8 +11,9 @@
 }
 
 .main > img {
-  height: 70px;
-  margin: 20px 0;
+  background-color: black;
+  height: 60vh;
+  width: 60vw;
 }
 
 .mainContent, .mainContent > div {

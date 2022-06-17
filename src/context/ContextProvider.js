@@ -24,7 +24,13 @@ function ContextProvider({ children }) {
       setData(results);
       setFilteredPlanets(results);
       setTableColumns(
-        Object.keys(results[0]).filter((key) => key !== 'residents'),
+        Object.keys(results[0]).filter(
+          (key) => key !== 'created'
+            && key !== 'edited'
+            && key !== 'residents'
+            && key !== 'films'
+            && key !== 'url',
+        ),
       );
     };
     getData();

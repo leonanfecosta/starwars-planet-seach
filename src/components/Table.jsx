@@ -166,15 +166,15 @@ function Table() {
           </div>
         ))}
       </div>
-      <table>
-        <thead>
+      <table className={ styles.table }>
+        <thead className={ styles.tableHead }>
           <tr>
             {tableColumns.map((columnTitle, index) => (
               <th key={ index }>{columnTitle.toUpperCase().replace('_', ' ')}</th>
             ))}
           </tr>
         </thead>
-        <tbody>
+        <tbody className={ styles.tableBody }>
           {filteredPlanets.map((planet, index) => (
             <tr key={ index }>
               <td data-testid="planet-name">{planet.name}</td>
@@ -186,18 +186,6 @@ function Table() {
               <td>{planet.terrain}</td>
               <td>{planet.surface_water}</td>
               <td>{planet.population}</td>
-              <td>
-                {planet.films.map((film) => (
-                  <span key={ film }>
-                    {film}
-                  </span>
-                ))}
-              </td>
-              <td>{planet.created}</td>
-              <td>{planet.edited}</td>
-              <td>
-                {planet.url}
-              </td>
             </tr>
           ))}
         </tbody>

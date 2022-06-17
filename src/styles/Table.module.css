@@ -149,3 +149,29 @@
 .btnIcon:hover {
   color: var(--button-delete-color);
 }
+
+.table {
+  font-size: 18px;
+}
+
+.tableHead {
+  background-color: var(--button-color);
+  color: var(--background-color);
+  font-weight: 600;
+  text-align: center;
+}
+
+.tableHead > tr > th {
+  padding: 10px;
+}
+
+.tableBody {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  text-align: center;
+}
+
+.tableBody > tr > td {
+  border: 1px solid var(--button-color);
+  padding: 20px;
+}

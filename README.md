@@ -9,11 +9,15 @@ Clone o repositório em uma pasta de preferência
 
 ```
 git clone git@github.com:leonanfecosta/starwars-planet-search.git
+```
 
 Entre na pasta que você acabou de clonar, e instale as dependencias
-
+```
 npm install
+```
+Para rodar o projeto no navegador, basta utilizar o codigo abaixo
 
+```
 npm start
 ```
 
